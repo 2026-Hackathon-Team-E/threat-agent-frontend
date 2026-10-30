@@ -162,3 +162,11 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .threat-facts dt{color:#86868b}
 .threat-facts dd{margin:0;color:#1d1d1f;overflow-wrap:anywhere}
 @media(max-width:1000px){.threats-scroll{grid-template-columns:1fr}}
+
+.category{margin-bottom:22px}
+.category-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;margin:0 0 12px;color:#1d1d1f}
+.category-title span{font-size:13px;font-weight:600;color:#86868b;background:#f0f0f3;border-radius:999px;padding:2px 9px}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.detail-facts{margin:10px 0 0}
+.detail-text{font-size:15px;line-height:1.65;color:#3a3a3c;white-space:pre-wrap}
+.threats-scroll{display:block;padding-right:6px}
