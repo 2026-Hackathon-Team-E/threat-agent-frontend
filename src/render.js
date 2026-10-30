@@ -32,10 +32,26 @@ export function renderDetail(impact) {
   const diff = lines.map(line => `<div class="diff-line ${line.startsWith('+') && !line.startsWith('+++') ? 'add' : line.startsWith('-') && !line.startsWith('---') ? 'remove' : ''}">${esc(line)}</div>`).join('');
   el.innerHTML = `<h3>${esc(impact.service)}</h3><p>${esc(impact.title)}</p><div class="tags">${badge(impact.priority?.tier)} ${badge(impact.status)}</div><h4>판단 근거</h4><ul>${(impact.priority?.reasons || []).map(r => `<li>${esc(r)}</li>`).join('')}</ul><h4>수정 내용</h4><p>${esc(impact.remediation?.text || '수정 제안 없음')} <small>(${esc(impact.remediation?.kind || 'manual')})</small></p><h4>변경 사항 (diff)</h4>${diff ? `<pre class="diff">${diff}</pre>` : '<p class="muted">표시할 diff가 없습니다.</p>'}<h4>재스캔</h4><p class="rescan">${impact.rescan === null || impact.rescan === undefined ? '아직 재스캔하지 않았습니다.' : `재스캔 ${esc(impact.rescan)}건`}</p>`;
 }
+const RISK_CLASS = { 긴급: 'critical', 높음: 'high', 보통: 'normal' };
 export function renderCards(cards) {
   const el = document.querySelector('#cards');
   if (!cards.length) { el.innerHTML = '<p class="empty">수집된 위협 카드가 없습니다.</p>'; return; }
-  el.innerHTML = cards.map(c => `<button class="item threat" data-card="${esc(c.key)}"><span class="item-top"><b>${esc(c.key)}</b>${badge(c.status)}</span><span>${esc(c.title)}</span><small>KEV: ${c.kev ? '등록' : '미등록'} · EPSS: ${esc(c.epss ?? '-')} · v${esc(c.version ?? '-')}</small></button>`).join('');
+  el.innerHTML = cards.map(c => {
+    const risk = c.risk_label || '보통';
+    const products = c.products?.length ? esc(c.products.join(', ')) : '확인 전';
+    const services = c.affected_services?.length ? esc(c.affected_services.join(', ')) : '없음';
+    const epss = c.epss_percent == null ? '-' : `${c.epss_percent}%`;
+    return `<button class="threat ${RISK_CLASS[risk] || 'normal'}" data-card="${esc(c.key)}">
+      <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="status-chip">${esc(c.status)}</span></span>
+      <strong class="threat-summary">${esc(c.summary_ko || c.title || '')}</strong>
+      <span class="threat-cve">${esc(c.key)}</span>
+      <dl class="threat-facts">
+        <div><dt>대상</dt><dd>${products}</dd></div>
+        <div><dt>우리 서비스</dt><dd>${services}</dd></div>
+        <div><dt>악용 가능성</dt><dd>${esc(epss)}${c.kev ? ' · 실제 악용 확인' : ''}</dd></div>
+      </dl>
+    </button>`;
+  }).join('');
 }
 export function renderCardDetail(card) {
   const el = document.querySelector('#card-detail');
