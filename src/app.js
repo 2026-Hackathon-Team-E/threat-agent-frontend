@@ -1,7 +1,7 @@
 // 담당: F tmdtndks. 상태: 스텁 (구현 전). 명세는 docs/SCREENS.md.
 import { REFRESH_MS, USE_FIXTURE } from './config.js';
 import { getImpacts, getCards, getCard } from './api.js';
-import { renderSummary, renderImpacts, renderDetail, renderCards, renderCardDetail } from './render.js';
+import { renderSummary, renderImpacts, renderDetail, renderCards, renderCardDetail, markSeen } from './render.js';
 let impacts = [], cards = [], selectedImpact = null, pending = false, timer = null;
 const statusEl = document.querySelector('#conn');
 const noticeEl = document.querySelector('#notice');
@@ -32,6 +32,7 @@ document.querySelector('#impacts').addEventListener('click', event => {
 });
 document.querySelector('#cards').addEventListener('click', async event => {
   const item = event.target.closest('[data-card]'); if (!item) return;
+  markSeen(item.dataset.card);
   const target = document.querySelector('#card-detail'); target.textContent = '상세 정보 불러오는 중…';
   try { const base = cards.find(c => c.key === item.dataset.card) || {}; renderCardDetail({ ...base, ...(await getCard(item.dataset.card)) }); } catch (error) { target.textContent = `상세 조회 실패: ${error.message}`; }
 });

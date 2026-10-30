@@ -46,7 +46,7 @@ function cardHtml(c) {
   const services = c.affected_services?.length ? esc(c.affected_services.join(', ')) : '없음';
   const epss = c.epss_percent == null ? '-' : `${c.epss_percent}%`;
   return `<button class="threat ${RISK_CLASS[risk] || 'normal'}" data-card="${esc(c.key)}">
-    <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="status-chip">${esc(c.status)}</span></span>
+    <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="threat-tags">${isNew(c.key) ? '<span class="new-badge">NEW</span>' : ''}<span class="status-chip">${esc(c.status)}</span></span></span>
     <strong class="threat-summary">${esc(headlineOf(c))}</strong>
     <span class="threat-cve">${esc(c.key.startsWith('NEWS:') ? '뉴스 기사' : c.key)}</span>
     <dl class="threat-facts">
@@ -83,6 +83,29 @@ function renderControls() {
   el.innerHTML = `<div class="filter-row">${SCOPES.map(s => `<button class="scope-btn ${threatState.scope === s.id ? 'active' : ''}" data-scope="${s.id}">${s.label}<span>${scopeCount(s.id)}</span></button>`).join('')}</div>
     <div class="filter-row sub">${CAT_FILTERS.map(f => `<button class="cat-btn ${threatState.category === f.id ? 'active' : ''}" data-cat="${f.id}">${f.label}<span>${catCount(f.id)}</span></button>`).join('')}</div>`;
 }
+const SEEN_KEY = 'seenThreatKeys';
+let seenKeys = null;
+function loadSeen() {
+  if (seenKeys) return seenKeys;
+  try {
+    const raw = localStorage.getItem(SEEN_KEY);
+    seenKeys = raw === null ? null : new Set(JSON.parse(raw));
+  } catch (e) {
+    seenKeys = null;
+  }
+  return seenKeys;
+}
+function saveSeen() {
+  try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seenKeys])); } catch (e) { /* 저장 실패는 무시 */ }
+}
+function isNew(key) {
+  return seenKeys !== null && !seenKeys.has(key);
+}
+export function markSeen(key) {
+  if (!seenKeys) return;
+  seenKeys.add(key);
+  saveSeen();
+}
 function renderList() {
   const el = document.querySelector('#cards');
   const items = lastCards.filter(c => inScope(c) && inCategory(c));
@@ -98,6 +121,10 @@ function renderList() {
 }
 export function renderCards(cards) {
   lastCards = cards;
+  if (loadSeen() === null) {
+    seenKeys = new Set(cards.map(c => c.key));
+    saveSeen();
+  }
   renderControls();
   renderList();
 }
