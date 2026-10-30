@@ -38,7 +38,7 @@ function renderImpactArticle(impact, card, state) {
   else if (!card) content = '<p class="muted">연결된 위협 설명이 없습니다.</p>';
   else {
     const description = card.description_ko || plainText(card.summary);
-    content = `<a href="#p2" class="impact-article impact-article-link" data-related-card="${esc(card.key)}"><span class="detail-label">관련 기사 · 보안 권고</span><h5>${esc(card.headline_ko || card.title || impact.title || impact.card)}</h5><span class="detail-id">${esc(card.key)}</span>${card.description_ko ? '<span class="detail-label">한국어 요약 (자동 번역)</span>' : ''}<p class="impact-description">${esc(description || '수집된 자료에 취약점의 상세 원인이 제공되지 않았습니다.')}</p><p class="impact-source">출처: ${esc((card.sources || []).join(', ') || '출처 정보 없음')}</p><span class="impact-article-action">수집된 위협에서 상세 보기 →</span></a>`;
+    content = `<a href="#p2" class="impact-article impact-article-link" data-related-card="${esc(card.key)}"><span class="detail-label">관련 기사 · 보안 권고</span><h5>${esc(card.headline_ko || card.title || impact.title || impact.card)}</h5><span class="detail-id">${esc(card.key)}</span>${card.description_ko ? '<span class="detail-label">한국어 요약 (자동 번역)</span>' : ''}<p class="impact-description">${esc(description || '수집된 자료에 취약점의 상세 원인이 제공되지 않았습니다.')}</p><p class="impact-source">출처: ${esc((card.sources || []).join(', ') || '출처 정보 없음')}</p></a>`;
   }
   return `<section class="impact-context" aria-label="취약점 원인 및 관련 자료"><h4>취약점 원인 및 관련 자료</h4>${match}${content}</section>`;
 }
