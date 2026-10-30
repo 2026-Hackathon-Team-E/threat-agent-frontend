@@ -1,0 +1,399 @@
+
+/* Security Watch ZIP design — only the "수집부터 수정까지 한눈에" section. */
+#p1 .onboard {
+  gap: 0;
+  padding: 20px 0 40px;
+}
+
+#p1 .hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 4px 80px;
+}
+
+#p1 .hero .eyebrow {
+  margin: 0;
+  color: #85878c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#p1 .hero .hero-title {
+  margin: 0;
+  color: #242527;
+  font-size: clamp(38px, 3.75vw, 60px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -3px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#p1 .hero .lede {
+  max-width: 900px;
+  margin: 0;
+  color: #85878c;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: -0.45px;
+}
+
+#p1 .notice:empty {
+  display: none;
+}
+
+#p1 .progress-section {
+  padding: 0;
+}
+
+#p1 .stage-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+#p1 .stage-card {
+  height: 280px;
+  min-height: 0;
+  aspect-ratio: auto;
+  gap: 16px;
+  padding: 28px 24px 24px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: none;
+}
+
+#p1 .stage-head {
+  min-height: 24px;
+}
+
+#p1 .stage-head h2 {
+  color: #242527;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+#p1 .stage-head > span {
+  color: #85878c;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+#p1 .stage-body {
+  align-items: flex-end;
+}
+
+#p1 .stage-value {
+  color: #242527;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+#p1 .stage-icon {
+  width: 88px;
+  height: 88px;
+  flex: 0 0 88px;
+  gap: 0;
+  border: 0;
+  border-radius: 18px;
+  background: #f5f5f7;
+}
+
+#p1 .stage-icon > svg {
+  display: none;
+}
+
+#p1 .stage-icon::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url("../assets/workflow/inbox.svg") center / contain no-repeat;
+}
+
+#p1 .stage-icon > span {
+  color: #85878c;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+#p1 .stage-card:first-child {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  column-gap: 6px;
+}
+
+#p1 .stage-card:first-child > .stage-head,
+#p1 .stage-card:first-child > .stage-body {
+  grid-column: 1 / -1;
+}
+
+#p1 .stage-card:first-child > .stage-body {
+  align-self: start;
+}
+
+#p1 .stage-card:first-child > .stage-tags {
+  align-self: center;
+  margin: 0;
+  gap: 6px;
+}
+
+#p1 .stage-tags .tag {
+  padding: 3px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: #f0f1f3;
+  color: #42474e;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 15px;
+}
+
+#p1 .stage-card:first-child > .stage-foot {
+  align-self: center;
+  margin: 0;
+  text-align: right;
+}
+
+#p1 .stage-foot {
+  margin: auto 0 0;
+  color: #85878c;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#p1 .donut-row {
+  height: 144px;
+  min-height: 144px;
+  flex: 0 0 144px;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+#p1 .donut {
+  width: 132px;
+  height: 132px;
+}
+
+#p1 .donut-hole {
+  inset: 13px;
+}
+
+#p1 .donut-hole strong {
+  font-size: 31.68px;
+  line-height: 1.25;
+}
+
+#p1 .donut-hole span {
+  color: #85878c;
+  font-size: 14.52px;
+  line-height: 1.5;
+}
+
+#p1 .legend {
+  gap: 8px;
+}
+
+#p1 .legend li {
+  justify-content: flex-end;
+  gap: 8px;
+  color: #42474e;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#p1 .legend li span {
+  width: 64px;
+}
+
+#p1 .legend li b {
+  font-size: 12px;
+}
+
+#p1 .legend i {
+  width: 12px;
+  height: 12px;
+}
+
+#p1 .stage-card:nth-child(3) {
+  gap: 0;
+}
+
+#p1 .stage-card:nth-child(3) .stage-head {
+  margin-bottom: 16px;
+}
+
+#p1 .stage-value.big {
+  margin-bottom: 16px;
+  font-size: 52px;
+}
+
+#p1 .bar-row {
+  color: #42474e;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+#p1 .bar-row b {
+  font-size: 12px;
+}
+
+#p1 .bar-row.muted,
+#p1 .bar-row.muted b {
+  color: #85878c;
+  font-weight: 400;
+}
+
+#p1 .bar {
+  height: 12px;
+  min-height: 12px;
+  margin: 4px 0 10px;
+  border-radius: 6px;
+  background: #f0f1f3;
+}
+
+#p1 .bar i {
+  border-radius: 6px;
+}
+
+#p1 .stage-card:nth-child(4) {
+  gap: 12px;
+  padding: 24px 24px 20px;
+}
+
+#p1 .stage-card:nth-child(4) .stage-value {
+  line-height: 1;
+}
+
+#p1 .verify-steps {
+  gap: 10px;
+}
+
+#p1 .vstep {
+  gap: 4px;
+}
+
+#p1 .vicon {
+  width: 40px;
+  height: 40px;
+  background: #f0f1f3;
+}
+
+#p1 .vicon > svg {
+  display: none;
+}
+
+#p1 .vicon::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("../assets/workflow/search.svg") center / contain no-repeat;
+}
+
+#p1 .vstep.done .vicon::before {
+  background-image: url("../assets/workflow/check.svg");
+}
+
+#p1 .vstep small {
+  color: #85878c;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+#p1 .vstep.done small {
+  color: #58766a;
+}
+
+#p1 .vline {
+  height: 3px;
+  background: #d7e3dc;
+}
+
+#p1 .verify-note {
+  justify-content: flex-start;
+  gap: 8px;
+  min-height: 38px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #edf3ef;
+  color: #58766a;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#p1 .verify-note::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  background: url("../assets/workflow/check-circle.svg") center / contain no-repeat;
+}
+
+#p1 .verify-note > span {
+  min-width: 0;
+  flex: 1;
+}
+
+#p1 .verify-note > b {
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) and (max-width: 1279px) {
+  #p1 .stage-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  #p1 .hero {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  #p1 .progress-section {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  #p1 .stage-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #p1 .stage-card:first-child {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    row-gap: 10px;
+  }
+
+  #p1 .stage-card:first-child > .stage-foot {
+    text-align: left;
+  }
+
+  #p1 .donut-row {
+    gap: 12px;
+  }
+
+  #p1 .legend li {
+    gap: 5px;
+  }
+
+  #p1 .legend li span {
+    width: auto;
+    flex: 1;
+  }
+
+  #p1 .verify-note {
+    gap: 6px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
