@@ -18,7 +18,7 @@ a{color:inherit;text-decoration:none}
 .app{display:block}
 .below{display:grid;grid-template-columns:200px 1fr;align-items:start}
 .below-main{min-width:0;padding-bottom:8px}
-.sidebar{position:static;align-self:start;background:#fff;border-right:1px solid #e5e5ea;padding:24px 14px;display:flex;flex-direction:column;gap:4px}
+.sidebar{position:static;align-self:stretch;background:#fff;border-right:1px solid #e5e5ea;padding:24px 14px;display:flex;flex-direction:column;gap:4px}
 .nav-label{font-size:11px;color:#86868b;letter-spacing:.04em;padding:14px 8px 6px;text-transform:uppercase}
 .nav-item{display:flex;justify-content:space-between;padding:8px 10px;border-radius:8px;font-size:13px}
 .nav-item:hover{background:#f2f2f4}
