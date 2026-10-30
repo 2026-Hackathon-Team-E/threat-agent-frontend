@@ -267,3 +267,13 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 
 .muted-bar{background:#f0f1f3}
 .muted-bar i{background:transparent}
+
+/* 제목은 한 줄, 상단 바와 설명 글자 확대 */
+.hero-title{white-space:nowrap;font-size:clamp(40px,4.6vw,64px)}
+.brand{font-size:17px}
+.topnav{font-size:16px}
+.topbar-right{font-size:14px}
+.topbar-right small{font-size:13px}
+.pill{font-size:13px}
+.connection{font-size:14px}
+.lede{font-size:18px}
