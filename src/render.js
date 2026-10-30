@@ -20,15 +20,27 @@ export function renderSummary(impacts, cards = []) {
 
 export function renderImpacts(impacts, selected) {
   const el = document.querySelector('#impacts');
-  if (!impacts.length) { el.innerHTML = '<p class="empty">아직 영향 카드가 없습니다. CVE 재생으로 샘플을 넣어 보세요.</p>'; return; }
+  if (!impacts.length) { el.innerHTML = '<p class="empty">아직 영향 카드가 없습니다.</p>'; return; }
   el.innerHTML = impacts.map(i => `<button class="item ${selected === i.id ? 'selected' : ''}" data-impact="${esc(i.id)}"><span class="item-top"><b>${esc(i.service)}</b>${badge(i.priority?.tier)}</span><span>${esc(i.dep)}</span><small>${esc(i.installed)} → ${esc(i.fixed || '확인 필요')} · ${esc(i.status)}</small></button>`).join('');
 }
-export function renderDetail(impact) {
+export function renderDetail(impact, card = null, articleState = 'ready') {
   const el = document.querySelector('#detail');
   if (!impact) { el.innerHTML = '<p class="empty">영향 카드를 선택하면 근거와 수정 내역이 표시됩니다.</p>'; return; }
   const lines = (impact.remediation?.diff || '').split('\n').filter(Boolean);
   const diff = lines.map(line => `<div class="diff-line ${line.startsWith('+') && !line.startsWith('+++') ? 'add' : line.startsWith('-') && !line.startsWith('---') ? 'remove' : ''}">${esc(line)}</div>`).join('');
-  el.innerHTML = `<h3>${esc(impact.service)}</h3><p>${esc(impact.title)}</p><div class="tags">${badge(impact.priority?.tier)} ${badge(impact.status)}</div><h4>판단 근거</h4><ul>${(impact.priority?.reasons || []).map(r => `<li>${esc(r)}</li>`).join('')}</ul><h4>수정 내용</h4><p>${esc(impact.remediation?.text || '수정 제안 없음')} <small>(${esc(impact.remediation?.kind || 'manual')})</small></p><h4>변경 사항 (diff)</h4>${diff ? `<pre class="diff">${diff}</pre>` : '<p class="muted">표시할 diff가 없습니다.</p>'}<h4>재스캔</h4><p class="rescan">${impact.rescan === null || impact.rescan === undefined ? '아직 재스캔하지 않았습니다.' : `재스캔 ${esc(impact.rescan)}건`}</p>`;
+  el.innerHTML = `<h3>${esc(impact.service)}</h3><p>${esc(impact.title)}</p><div class="tags">${badge(impact.priority?.tier)} ${badge(impact.status)}</div>${renderImpactArticle(impact, card, articleState)}<h4>판단 근거</h4><ul>${(impact.priority?.reasons || []).map(r => `<li>${esc(r)}</li>`).join('')}</ul><h4>수정 내용</h4><p>${esc(impact.remediation?.text || '수정 제안 없음')} <small>(${esc(impact.remediation?.kind || 'manual')})</small></p><h4>변경 사항 (diff)</h4>${diff ? `<pre class="diff">${diff}</pre>` : '<p class="muted">표시할 diff가 없습니다.</p>'}<h4>재스캔</h4><p class="rescan">${impact.rescan === null || impact.rescan === undefined ? '아직 재스캔하지 않았습니다.' : `재스캔 ${esc(impact.rescan)}건`}</p>`;
+}
+function renderImpactArticle(impact, card, state) {
+  const match = `<p class="impact-match"><strong>서비스 영향 근거</strong><br>${esc(impact.service)}의 ${esc(impact.dep)} ${esc(impact.installed)} 버전이 ${esc(impact.card)}의 취약 버전 범위에 해당합니다. 탐지 당시 버전 기준입니다.</p>`;
+  let content;
+  if (state === 'loading') content = '<p class="muted" role="status">관련 위협 설명을 불러오는 중…</p>';
+  else if (state === 'error') content = '<p role="status">관련 위협 설명을 불러오지 못했습니다.</p><button type="button" class="article-retry" data-retry-impact>다시 불러오기</button>';
+  else if (!card) content = '<p class="muted">연결된 위협 설명이 없습니다.</p>';
+  else {
+    const description = card.description_ko || plainText(card.summary);
+    content = `<a href="#p2" class="impact-article impact-article-link" data-related-card="${esc(card.key)}"><span class="detail-label">관련 기사 · 보안 권고</span><h5>${esc(card.headline_ko || card.title || impact.title || impact.card)}</h5><span class="detail-id">${esc(card.key)}</span>${card.description_ko ? '<span class="detail-label">한국어 요약 (자동 번역)</span>' : ''}<p class="impact-description">${esc(description || '수집된 자료에 취약점의 상세 원인이 제공되지 않았습니다.')}</p><p class="impact-source">출처: ${esc((card.sources || []).join(', ') || '출처 정보 없음')}</p><span class="impact-article-action">수집된 위협에서 상세 보기 →</span></a>`;
+  }
+  return `<section class="impact-context" aria-label="취약점 원인 및 관련 자료"><h4>취약점 원인 및 관련 자료</h4>${match}${content}</section>`;
 }
 const RISK_CLASS = { 긴급: 'critical', 높음: 'high', 보통: 'normal' };
 function headlineOf(c) {

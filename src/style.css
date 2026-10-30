@@ -200,3 +200,14 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 /* NEW 표시: 아직 안 본 카드 */
 .threat-tags{display:inline-flex;align-items:center;gap:8px}
 .new-badge{font-size:11px;font-weight:700;letter-spacing:.04em;background:#1d1d1f;color:#fff;border-radius:999px;padding:3px 8px}
+/* Impact context and related article */
+.impact-context{margin:20px 0;padding:18px;border:1px solid #e5e5ea;border-radius:12px;background:#fafafa}
+.impact-context>h4{margin-top:0;color:#1d1d1f}
+.impact-match{padding-bottom:14px;border-bottom:1px solid #e5e5ea;overflow-wrap:anywhere}
+.impact-article h5{font-size:16px;line-height:1.5;margin:8px 0;overflow-wrap:anywhere}
+.impact-article .detail-label{display:block;margin-top:12px}
+.impact-description{white-space:pre-line;overflow-wrap:anywhere;max-height:320px;overflow:auto}
+.impact-article .impact-source{font-size:12px;color:#6e6e73}
+.article-retry{border:1px solid #d2d2d7;border-radius:8px;background:white;padding:8px 12px}
+.article-retry:focus-visible{outline:2px solid #2563eb;outline-offset:3px}
+.impact-article-link{display:block;border-radius:8px;padding:4px 8px;margin:0 -8px}.impact-article-link:hover{background:#f0f3f8}.impact-article-link:focus-visible{outline:2px solid #2563eb;outline-offset:3px}.impact-article-action{display:block;color:#2563eb;font-size:13px;font-weight:600;margin:14px 0 8px}#card-detail{scroll-margin-top:76px}
