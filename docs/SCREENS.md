@@ -40,3 +40,22 @@
 - 색만으로 상태를 구분하지 않는다. 배지에 글자를 함께 쓴다(긴급, 높음, 보통).
 - 숫자는 천 단위 구분 없이 그대로 쓴다. 날짜는 `YYYY-MM-DD`.
 - 한국어 UI. 식별자(CVE, GHSA, 패키지명)는 원문 그대로.
+
+
+
+// 프론트엔드 구현 후 추가사항입니다.
+# Threat Agent Frontend
+바닐라 HTML/CSS/JavaScript 기반 보안 위협 대시보드입니다. 프레임워크 및 npm 의존성이 없습니다.
+
+## 실행
+```bash
+python -m http.server 8080
+```
+브라우저에서 http://localhost:8080 을 여세요. `src/config.js`의 `USE_FIXTURE=true`가 기본값이므로 백엔드 없이 동작합니다. 실제 API를 사용하려면 `USE_FIXTURE=false`로 변경하고 백엔드를 http://localhost:8000 에서 실행하세요. 백엔드 CORS는 http://localhost:8080 을 허용해야 합니다.
+Fixture 재생 버튼은 네트워크 POST를 보내지 않는 시뮬레이션입니다. 실제 모드에서만 POST /replay/{cve}를 호출합니다.
+
+## 구현
+요약 카드, 영향 목록, 상세 근거·diff·재스캔, 위협 목록·상세, 3초 폴링, 백그라운드 중단, 404/202/연결 실패 처리.
+
+## 테스트
+브라우저에서 개발자 도구 Console/Network를 열고 Fixture 로딩을 확인하세요. 실제 백엔드 연동 및 브라우저 E2E는 별도 확인이 필요합니다.
