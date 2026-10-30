@@ -187,3 +187,12 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 
 .detail-ko{margin-top:20px;padding:16px 18px;background:#f5f5f7;border-radius:14px}
 .detail-ko p{font-size:15px;line-height:1.7;color:#1d1d1f;margin:0}
+
+/* 위협 카드 필터 */
+.filters{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px}
+.scope-btn,.cat-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #e5e5ea;background:#fff;color:#3a3a3c;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.scope-btn span,.cat-btn span{font-size:12px;color:#86868b;font-variant-numeric:tabular-nums}
+.scope-btn.active,.cat-btn.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff}
+.scope-btn.active span,.cat-btn.active span{color:#d2d2d7}
+.cat-btn{padding:6px 12px;font-size:13px}

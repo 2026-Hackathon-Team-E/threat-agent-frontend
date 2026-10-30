@@ -56,15 +56,59 @@ function cardHtml(c) {
     </dl>
   </button>`;
 }
-export function renderCards(cards) {
+const SCOPES = [
+  { id: 'impact', label: '우리 서비스 영향' },
+  { id: 'all', label: '전체' },
+  { id: 'other', label: '기타' },
+];
+const CAT_FILTERS = [
+  { id: 'all', label: '전부' },
+  { id: 'news', label: '뉴스' },
+  { id: 'cve', label: 'CVE' },
+  { id: 'advisory', label: '보안 이슈' },
+];
+const threatState = { scope: 'impact', category: 'all' };
+let lastCards = [];
+const inScope = c => {
+  const hit = (c.affected_services || []).length > 0;
+  if (threatState.scope === 'impact') return hit;
+  if (threatState.scope === 'other') return !hit;
+  return true;
+};
+const inCategory = c => threatState.category === 'all' || CATEGORIES.find(x => x.id === threatState.category)?.test(c);
+function renderControls() {
+  const el = document.querySelector('#filters');
+  const scopeCount = id => lastCards.filter(c => { const hit = (c.affected_services || []).length > 0; return id === 'impact' ? hit : id === 'other' ? !hit : true; }).length;
+  const catCount = id => lastCards.filter(c => inScope(c) && (id === 'all' || CATEGORIES.find(x => x.id === id)?.test(c))).length;
+  el.innerHTML = `<div class="filter-row">${SCOPES.map(s => `<button class="scope-btn ${threatState.scope === s.id ? 'active' : ''}" data-scope="${s.id}">${s.label}<span>${scopeCount(s.id)}</span></button>`).join('')}</div>
+    <div class="filter-row sub">${CAT_FILTERS.map(f => `<button class="cat-btn ${threatState.category === f.id ? 'active' : ''}" data-cat="${f.id}">${f.label}<span>${catCount(f.id)}</span></button>`).join('')}</div>`;
+}
+function renderList() {
   const el = document.querySelector('#cards');
-  if (!cards.length) { el.innerHTML = '<p class="empty">수집된 위협 카드가 없습니다.</p>'; return; }
+  const items = lastCards.filter(c => inScope(c) && inCategory(c));
+  if (!items.length) {
+    el.innerHTML = `<p class="empty">${threatState.scope === 'impact' ? '우리 서비스에 영향을 주는 카드가 아직 없습니다.' : '표시할 카드가 없습니다.'}</p>`;
+    return;
+  }
   el.innerHTML = CATEGORIES.map(cat => {
-    const items = cards.filter(cat.test);
-    if (!items.length) return '';
-    return `<section class="category"><h3 class="category-title">${cat.title}<span>${items.length}</span></h3><div class="category-grid">${items.map(cardHtml).join('')}</div></section>`;
+    const group = items.filter(cat.test);
+    if (!group.length) return '';
+    return `<section class="category"><h3 class="category-title">${cat.title}<span>${group.length}</span></h3><div class="category-grid">${group.map(cardHtml).join('')}</div></section>`;
   }).join('');
 }
+export function renderCards(cards) {
+  lastCards = cards;
+  renderControls();
+  renderList();
+}
+document.querySelector('#filters')?.addEventListener('click', e => {
+  const btn = e.target.closest('[data-scope],[data-cat]');
+  if (!btn) return;
+  if (btn.dataset.scope) threatState.scope = btn.dataset.scope;
+  if (btn.dataset.cat) threatState.category = btn.dataset.cat;
+  renderControls();
+  renderList();
+});
 function plainText(html) {
   const doc = new DOMParser().parseFromString(html || '', 'text/html');
   return (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
