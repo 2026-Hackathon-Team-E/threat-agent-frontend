@@ -116,3 +116,5 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .items{max-height:calc(100vh - 220px);overflow-y:auto}
 .page-3 .panel{box-shadow:0 1px 2px rgba(0,0,0,.04)}
 @media(max-width:1000px){.sidebar{display:none}.page-2,.page-3{margin-left:0;padding:24px}.workspace{grid-template-columns:1fr}}
+/* 온보딩은 위쪽에서 시작 (한 화면 가운데 정렬 규칙 해제) */
+.onboard{min-height:0;justify-content:flex-start}
