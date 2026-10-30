@@ -1,6 +1,24 @@
 <!doctype html>
 <html lang="ko">
   <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Security Watch · 위협 영향 대시보드</title><link rel="stylesheet" href="./src/style.css">
+  </head>
+  <body>
+    <header class="topbar"><div><span class="eyebrow">SECURITY WATCH</span><h1>위협 영향 대시보드</h1><p>최신 CVE · KEV 기반 서비스 영향 및 수정 현황</p></div><div class="header-side"><span id="conn" class="connection">연결 확인 중</span><small id="updated">마지막 갱신: -</small></div></header>
+    <main class="container">
+    <section class="toolbar"><form id="replay-form"><label for="cve">CVE 재생</label><div class="input-row"><input id="cve" placeholder="CVE-2021-44228" aria-label="CVE 번호" required><button id="replay" type="submit">재생 요청</button></div></form><p id="notice" class="notice" role="status" aria-live="polite"></p></section>
+    <section id="summary" class="summary" aria-label="위험도별 영향 건수"></section>
+    <div class="layout"><section class="panel"><h2>영향받는 서비스</h2><div id="impacts" class="items"></div></section><section class="panel"><h2>영향 상세 및 수정 결과</h2><div id="detail"></div></section></div>
+    <section class="panel"><h2>수집된 위협 카드</h2><div id="cards" class="threats"></div></section><section class="panel"><h2>위협 상세</h2><div id="card-detail"><p class="muted">위협 카드를 선택해 상세 정보를 확인하세요.</p></div></section>
+    </main><script type="module" src="./src/app.js"></script>
+  </body>
+</html>
+
+
+<!--
+<!doctype html>
+<html lang="ko">
+  <head>
     <meta charset="utf-8" />
     <title>위협 영향 카드</title>
     <link rel="stylesheet" href="src/style.css" />
@@ -19,3 +37,4 @@
     <script type="module" src="src/app.js"></script>
   </body>
 </html>
+-->
