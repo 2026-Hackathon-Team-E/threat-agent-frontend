@@ -48,6 +48,7 @@ function cardHtml(c) {
   return `<button class="threat ${RISK_CLASS[risk] || 'normal'}" data-card="${esc(c.key)}">
     <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="threat-tags">${isNew(c.key) ? '<span class="new-badge">NEW</span>' : ''}<span class="status-chip">${esc(c.status)}</span></span></span>
     <strong class="threat-summary">${esc(headlineOf(c))}</strong>
+    ${c.description_ko ? `<p class="threat-desc">${esc(c.description_ko)}</p>` : ''}
     <span class="threat-cve">${esc(c.key.startsWith('NEWS:') ? '뉴스 기사' : c.key)}</span>
     <dl class="threat-facts">
       <div><dt>대상</dt><dd>${products}</dd></div>
