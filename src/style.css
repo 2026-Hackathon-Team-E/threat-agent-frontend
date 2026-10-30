@@ -211,3 +211,6 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .article-retry{border:1px solid #d2d2d7;border-radius:8px;background:white;padding:8px 12px}
 .article-retry:focus-visible{outline:2px solid #2563eb;outline-offset:3px}
 .impact-article-link{display:block;border-radius:8px;padding:4px 8px;margin:0 -8px}.impact-article-link:hover{background:#f0f3f8}.impact-article-link:focus-visible{outline:2px solid #2563eb;outline-offset:3px}.impact-article-action{display:block;color:#2563eb;font-size:13px;font-weight:600;margin:14px 0 8px}#card-detail{scroll-margin-top:76px}
+
+/* 위험 등급: 긴급만 채도 낮은 붉은색, 나머지는 글자만 */
+.threat.critical .risk-chip{background:#f8e9e8;color:#9a4a47;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600}
