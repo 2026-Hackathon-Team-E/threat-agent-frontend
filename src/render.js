@@ -19,6 +19,7 @@ export function renderSummary(impacts, cards = []) {
     ? `conic-gradient(#c0392b 0 ${pct}%, #d4833a ${pct}% ${pct2}%, #c5c7cb ${pct2}% 100%)`
     : 'conic-gradient(#e5e5ea 0 100%)';
   const donePct = total ? Math.round((done / total) * 100) : 0;
+  const proposedPct = total ? Math.round((proposed / total) * 100) : 0;
   document.querySelector('#summary').innerHTML = `
     <div class="stage-grid">
       <article class="stage-card">
@@ -56,6 +57,7 @@ export function renderSummary(impacts, cards = []) {
         <div class="bar-row"><span>완료</span><b>${done}</b></div>
         <div class="bar"><i style="width:${donePct}%"></i></div>
         <div class="bar-row muted"><span>제안</span><b>${proposed}</b></div>
+        <div class="bar muted-bar"><i style="width:${proposedPct}%"></i></div>
         <p class="stage-foot">완료 ${done} · 제안 ${proposed}</p>
       </article>
 
@@ -63,9 +65,9 @@ export function renderSummary(impacts, cards = []) {
         <div class="stage-head"><h2>검증</h2><span>04</span></div>
         <strong class="stage-value">${verified}</strong>
         <div class="verify-steps">
-          <div class="vstep"><span class="vicon">✓</span><small>스캔</small></div>
+          <div class="vstep"><span class="vicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><small>스캔</small></div>
           <span class="vline"></span>
-          <div class="vstep done"><span class="vicon">✓</span><small>완료</small></div>
+          <div class="vstep done"><span class="vicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><small>완료</small></div>
         </div>
         <div class="verify-note"><span>재스캔 완료 · 결과 기록됨</span><b>${verified}건</b></div>
         <p class="stage-foot">재스캔 완료 ${verified}건</p>
