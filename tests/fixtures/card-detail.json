@@ -1,0 +1,26 @@
+{
+  "key": "CVE-2021-44228",
+  "ids": ["CVE-2021-44228", "GHSA-jfh8-gbnc-hgf2"],
+  "sources": ["CISA KEV", "GitHub Advisory", "뉴스:The Hacker News"],
+  "title": "Apache Log4j2 Remote Code Execution",
+  "summary": "Log4j2 JNDI 조회 기능으로 원격 코드 실행이 가능합니다.",
+  "workaround": "log4j2.formatMsgNoLookups=true 설정 또는 2.15.0 이상으로 업그레이드",
+  "kev": true,
+  "ransomware": true,
+  "due_date": "2021-12-24",
+  "cvss": 10.0,
+  "epss": 0.97,
+  "affected": [
+    {
+      "ecosystem": "Maven",
+      "name": "org.apache.logging.log4j:log4j-core",
+      "intervals": [{"lo": "2.0", "lo_inc": true, "hi": "2.15.0", "hi_inc": false}],
+      "fixed_versions": ["2.15.0", "2.17.1"],
+      "source": "GitHub Advisory"
+    }
+  ],
+  "status": "확정",
+  "version": 3,
+  "osv_checked_at": 0.0,
+  "epss_checked": true
+}

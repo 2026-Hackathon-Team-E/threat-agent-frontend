@@ -1,0 +1,50 @@
+[
+  {
+    "id": "CVE-2021-44228@payment-api:Maven:org.apache.logging.log4j:log4j-core",
+    "card": "CVE-2021-44228",
+    "title": "Apache Log4j2 Remote Code Execution",
+    "service": "payment-api",
+    "env": "prod",
+    "exposed": true,
+    "dep": "org.apache.logging.log4j:log4j-core",
+    "ecosystem": "Maven",
+    "installed": "2.14.1",
+    "fixed": "2.15.0",
+    "priority": {
+      "tier": "긴급",
+      "rank": [1, 1, 1, 0.97, 10.0],
+      "reasons": ["KEV 등록(실제 악용)", "인터넷 노출", "EPSS 0.97", "CVSS 10.0"]
+    },
+    "status": "수정 완료",
+    "remediation": {
+      "kind": "bump",
+      "text": "org.apache.logging.log4j:log4j-core 2.14.1 → 2.15.0",
+      "diff": "--- a/pom.xml\n+++ b/pom.xml\n@@ -8 +8 @@\n-      <version>2.14.1</version>\n+      <version>2.15.0</version>\n"
+    },
+    "rescan": 0
+  },
+  {
+    "id": "CVE-2020-14343@payment-api:PyPI:PyYAML",
+    "card": "CVE-2020-14343",
+    "title": "PyYAML arbitrary code execution via full_load",
+    "service": "payment-api",
+    "env": "prod",
+    "exposed": true,
+    "dep": "PyYAML",
+    "ecosystem": "PyPI",
+    "installed": "5.3",
+    "fixed": "5.4",
+    "priority": {
+      "tier": "높음",
+      "rank": [0, 0, 1, 0.12, 9.8],
+      "reasons": ["인터넷 노출", "EPSS 0.12", "CVSS 9.8"]
+    },
+    "status": "수정 제안",
+    "remediation": {
+      "kind": "bump",
+      "text": "PyYAML 5.3 → 5.4",
+      "diff": "--- a/requirements.txt\n+++ b/requirements.txt\n@@ -2 +2 @@\n-PyYAML==5.3\n+PyYAML==5.4\n"
+    },
+    "rescan": null
+  }
+]

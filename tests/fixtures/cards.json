@@ -1,0 +1,26 @@
+[
+  {
+    "key": "CVE-2021-44228",
+    "ids": ["CVE-2021-44228", "GHSA-jfh8-gbnc-hgf2"],
+    "sources": ["CISA KEV", "GitHub Advisory"],
+    "title": "Apache Log4j2 Remote Code Execution",
+    "kev": true,
+    "ransomware": true,
+    "epss": 0.97,
+    "cvss": 10.0,
+    "status": "확정",
+    "version": 3
+  },
+  {
+    "key": "CVE-2020-14343",
+    "ids": ["CVE-2020-14343", "GHSA-8q59-vrmh-qqgf"],
+    "sources": ["GitHub Advisory"],
+    "title": "PyYAML arbitrary code execution via full_load",
+    "kev": false,
+    "ransomware": false,
+    "epss": 0.12,
+    "cvss": 9.8,
+    "status": "확정",
+    "version": 1
+  }
+]
