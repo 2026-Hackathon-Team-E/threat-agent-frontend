@@ -52,7 +52,7 @@ export function renderSummary(impacts, cards = []) {
 
       <article class="stage-card">
         <div class="stage-head"><h2>수정</h2><span>03</span></div>
-        <strong class="stage-value">${done}/${total}</strong>
+        <strong class="stage-value big">${done}/${total}</strong>
         <div class="bar-row"><span>완료</span><b>${done}</b></div>
         <div class="bar"><i style="width:${donePct}%"></i></div>
         <div class="bar-row muted"><span>제안</span><b>${proposed}</b></div>
