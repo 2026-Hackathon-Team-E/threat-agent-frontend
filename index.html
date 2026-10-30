@@ -11,9 +11,9 @@
   <div class="topbar-inner">
     <span class="brand">Security Watch</span>
     <nav class="topnav">
-      <a href="#progress">진행 현황</a>
-      <a href="#workspace">영향 서비스</a>
-      <a href="#threats">수집된 위협</a>
+      <a href="#p1">진행 현황</a>
+      <a href="#p2">수집된 위협</a>
+      <a href="#p3">영향 서비스</a>
     </nav>
     <div class="topbar-right">
       <span id="conn" class="connection">연결 확인 중</span>
@@ -23,35 +23,47 @@
   </div>
 </header>
 
-<div class="app">
-  <main class="content">
+<aside class="sidebar">
+  <div class="nav-label">보기</div>
+  <nav class="nav">
+    <a class="nav-item" href="#p3">영향받는 서비스 <span id="count-impacts">0</span></a>
+    <a class="nav-item" href="#p2">수집된 위협 <span id="count-cards">0</span></a>
+  </nav>
+  <div class="nav-label">위험도</div>
+  <div id="tiers" class="tier-list"></div>
+</aside>
+
+<main class="content">
+  <!-- 1페이지: 온보딩 -->
+  <section id="p1" class="page page-1">
     <div class="onboard">
-    <section class="hero">
-      <p class="eyebrow">위험 영향 대시보드</p>
-      <h1>수집부터 수정까지<br>한눈에</h1>
-      <p class="lede">최신 CVE · KEV와 보안 뉴스를 수집하고, 영향받는 서비스를 판단해 수정과 재스캔 결과까지 보여줍니다.</p>
-      <p id="notice" class="notice" role="status" aria-live="polite"></p>
-    </section>
-
-    <section id="progress" class="progress-section">
-      <div class="section-head"><h2>진행 현황</h2><span class="muted">3초마다 자동 갱신</span></div>
-      <div id="summary"></div>
-    </section>
+      <div class="hero">
+        <p class="eyebrow">위험 영향 대시보드</p>
+        <h1>수집부터 수정까지<br>한눈에</h1>
+        <p class="lede">최신 CVE · KEV와 보안 뉴스를 수집하고, 영향받는 서비스를 판단해 수정과 재스캔 결과까지 보여줍니다.</p>
+        <p id="notice" class="notice" role="status" aria-live="polite"></p>
+      </div>
+      <div id="summary" class="progress-section"></div>
     </div>
+  </section>
 
+  <!-- 2페이지: 수집된 위협 -->
+  <section id="p2" class="page page-2">
+    <div class="page-inner">
+      <div class="section-head"><h2>수집된 위협 카드</h2><span class="muted">스크롤하여 전체 보기</span></div>
+      <div class="panel threats-panel">
+        <div id="cards" class="threats-scroll"></div>
+      </div>
+      <div class="panel" style="margin-top:20px">
+        <h2>위협 상세</h2>
+        <div id="card-detail"><p class="muted">위협 카드를 선택해 상세 정보를 확인하세요.</p></div>
+      </div>
+    </div>
+  </section>
 
-    <div class="below">
-      <aside class="sidebar">
-        <div class="nav-label">보기</div>
-        <nav class="nav">
-          <a class="nav-item" href="#workspace">영향받는 서비스 <span id="count-impacts">0</span></a>
-          <a class="nav-item" href="#threats">수집된 위협 <span id="count-cards">0</span></a>
-        </nav>
-        <div class="nav-label">위험도</div>
-        <div id="tiers" class="tier-list"></div>
-      </aside>
-      <div class="below-main">
-        <section id="workspace" class="workspace">
+  <!-- 3페이지: 영향받는 서비스 -->
+  <section id="p3" class="page page-3">
+    <div class="page-inner workspace">
       <div class="panel list-panel">
         <h2>영향받는 서비스</h2>
         <div id="impacts" class="items"></div>
@@ -60,19 +72,9 @@
         <h2>영향 상세 및 수정 결과</h2>
         <div id="detail"></div>
       </div>
-        </section>
-    <section id="threats" class="panel threats-panel">
-      <div class="section-head"><h2>수집된 위협 카드</h2><span class="muted">스크롤하여 전체 보기</span></div>
-      <div id="cards" class="threats-scroll"></div>
-    </section>
-    <section class="panel">
-      <h2>위협 상세</h2>
-      <div id="card-detail"><p class="muted">위협 카드를 선택해 상세 정보를 확인하세요.</p></div>
-    </section>
-      </div>
     </div>
-  </main>
-</div>
+  </section>
+</main>
 <script type="module" src="src/app.js"></script>
 </body>
 </html>
