@@ -26,7 +26,7 @@ export function renderSummary(impacts, cards = []) {
         <div class="stage-head"><h2>수집</h2><span>01</span></div>
         <div class="stage-body">
           <strong class="stage-value">${cards.length}</strong>
-          <div class="stage-icon">CVE · KEV</div>
+          <div class="stage-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#42474e" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 13.5 5.5 5h13L21 13.5V19H3z"/><path d="M3 13.5h5l1.5 2h5l1.5-2h5"/></svg><span>CVE · KEV</span></div>
         </div>
         <div class="stage-tags">
           <span class="tag">CVE ${cveCount}</span>

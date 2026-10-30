@@ -277,3 +277,6 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .pill{font-size:13px}
 .connection{font-size:14px}
 .lede{font-size:18px}
+
+.stage-icon{flex-direction:column;gap:4px;background:#f5f5f7;border:1px solid #ececf0}
+.stage-icon span{font-size:10px;color:#85878c}
