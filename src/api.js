@@ -12,7 +12,3 @@ async function request(url, options = {}) {
 export const getImpacts = () => request(USE_FIXTURE ? './tests/fixtures/impacts.json' : `${API_BASE}/impacts`);
 export const getCards = () => request(USE_FIXTURE ? './tests/fixtures/cards.json' : `${API_BASE}/cards`);
 export const getCard = key => request(USE_FIXTURE ? './tests/fixtures/card-detail.json' : `${API_BASE}/cards/${encodeURIComponent(key)}`);
-export async function replayCve(cve) {
-  if (USE_FIXTURE) return { queued: cve, fixture: true };
-  return request(`${API_BASE}/replay/${encodeURIComponent(cve)}`, { method: 'POST' });
-}
