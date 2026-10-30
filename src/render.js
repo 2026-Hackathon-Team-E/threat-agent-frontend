@@ -31,6 +31,10 @@ export function renderDetail(impact) {
   el.innerHTML = `<h3>${esc(impact.service)}</h3><p>${esc(impact.title)}</p><div class="tags">${badge(impact.priority?.tier)} ${badge(impact.status)}</div><h4>판단 근거</h4><ul>${(impact.priority?.reasons || []).map(r => `<li>${esc(r)}</li>`).join('')}</ul><h4>수정 내용</h4><p>${esc(impact.remediation?.text || '수정 제안 없음')} <small>(${esc(impact.remediation?.kind || 'manual')})</small></p><h4>변경 사항 (diff)</h4>${diff ? `<pre class="diff">${diff}</pre>` : '<p class="muted">표시할 diff가 없습니다.</p>'}<h4>재스캔</h4><p class="rescan">${impact.rescan === null || impact.rescan === undefined ? '아직 재스캔하지 않았습니다.' : `재스캔 ${esc(impact.rescan)}건`}</p>`;
 }
 const RISK_CLASS = { 긴급: 'critical', 높음: 'high', 보통: 'normal' };
+function headlineOf(c) {
+  if (c.key.startsWith('NEWS:') && c.headline_ko) return c.headline_ko;
+  return c.summary_ko || c.title || '';
+}
 const CATEGORIES = [
   { id: 'cve', title: 'CVE 취약점 발견', test: c => c.key.startsWith('CVE-') },
   { id: 'advisory', title: '보안 이슈', test: c => !c.key.startsWith('CVE-') && !c.key.startsWith('NEWS:') },
@@ -43,7 +47,7 @@ function cardHtml(c) {
   const epss = c.epss_percent == null ? '-' : `${c.epss_percent}%`;
   return `<button class="threat ${RISK_CLASS[risk] || 'normal'}" data-card="${esc(c.key)}">
     <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="status-chip">${esc(c.status)}</span></span>
-    <strong class="threat-summary">${esc(c.summary_ko || c.title || '')}</strong>
+    <strong class="threat-summary">${esc(headlineOf(c))}</strong>
     <span class="threat-cve">${esc(c.key.startsWith('NEWS:') ? '뉴스 기사' : c.key)}</span>
     <dl class="threat-facts">
       <div><dt>대상</dt><dd>${products}</dd></div>
@@ -77,7 +81,7 @@ export function renderCardDetail(card) {
       <span class="detail-category">${esc(category)}</span>
       <span class="detail-id">${esc(identifier)}</span>
     </div>
-    <h3 class="detail-title">${esc(card.summary_ko || card.title || '')}</h3>
+    <h3 class="detail-title">${esc(headlineOf(card))}</h3>
     <dl class="detail-facts">
       <div><dt>위험 등급</dt><dd>${esc(card.risk_label || '보통')}</dd></div>
       <div><dt>상태</dt><dd>${esc(card.status)}</dd></div>
