@@ -224,43 +224,43 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 
 .threat-desc{font-size:14px;line-height:1.6;color:#3a3a3c;margin:0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 
-/* 온보딩 진행 카드 (압축 시안 크기 기준, 값은 실데이터) */
-.stage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.stage-card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;height:280px;min-width:0;overflow:hidden;background:#fff;border-radius:18px;padding:28px 24px 24px}
-.stage-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;white-space:nowrap}
-.stage-head h2{font-size:16px;font-weight:700;margin:0;color:#242527}
-.stage-head span{font-size:11px;color:#85878c}
+/* 온보딩 진행 카드 (참고 이미지 비율 기준, 값은 실데이터) */
+.stage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stage-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;aspect-ratio:1.3/1;min-width:0;overflow:hidden;background:#fff;border-radius:12px;padding:16px 16px 14px}
+.stage-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;white-space:nowrap}
+.stage-head h2{font-size:13px;font-weight:700;margin:0;color:#242527}
+.stage-head span{font-size:10px;color:#85878c}
 .stage-body{width:100%;display:flex;justify-content:space-between;align-items:flex-end}
-.stage-value{font-size:48px;font-weight:700;letter-spacing:-1.5px;line-height:1.15;color:#242527;font-variant-numeric:tabular-nums}
-.stage-value.big{font-size:52px}
-.stage-icon{width:88px;height:88px;border-radius:18px;background:#f5f5f7;display:flex;align-items:center;justify-content:center;font-size:11px;color:#85878c;text-align:center}
-.stage-tags{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
-.tag{font-size:10px;color:#42474e;background:#f0f1f3;border-radius:4px;padding:3px 8px}
+.stage-value{font-size:36px;font-weight:700;letter-spacing:-1px;line-height:1.1;color:#242527;font-variant-numeric:tabular-nums}
+.stage-value.big{font-size:38px}
+.stage-icon{width:56px;height:56px;border-radius:12px;background:#f5f5f7;display:flex;align-items:center;justify-content:center;font-size:9px;color:#85878c;text-align:center}
+.stage-tags{margin-top:auto;display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:9px;color:#42474e;background:#f0f1f3;border-radius:3px;padding:2px 6px}
 .tag-bold{font-weight:700}
-.stage-foot{margin:auto 0 0;font-size:12px;color:#85878c}
-.donut-row{width:100%;display:flex;align-items:center;gap:16px}
-.donut{width:132px;height:132px;border-radius:50%;flex:none;position:relative}
-.donut-hole{position:absolute;inset:33px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.donut-hole strong{font-size:32px;font-weight:700;color:#242527;line-height:1}
-.donut-hole span{font-size:14px;color:#85878c}
-.legend{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
-.legend li{display:flex;align-items:center;gap:8px;font-size:12px;color:#42474e;white-space:nowrap}
-.legend li span{width:64px;flex:none}
-.legend li b{margin-left:auto;font-size:12px}
-.legend i{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
-.bar-row{width:100%;display:flex;justify-content:space-between;font-size:12px;color:#42474e}
+.stage-foot{margin:auto 0 0;font-size:10px;color:#85878c;line-height:1.4}
+.donut-row{width:100%;display:flex;align-items:center;gap:10px}
+.donut{width:96px;height:96px;border-radius:50%;flex:none;position:relative}
+.donut-hole{position:absolute;inset:24px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-hole strong{font-size:22px;font-weight:700;color:#242527;line-height:1}
+.donut-hole span{font-size:10px;color:#85878c}
+.legend{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.legend li{display:flex;align-items:center;gap:6px;font-size:10px;color:#42474e;white-space:nowrap}
+.legend li span{width:48px;flex:none}
+.legend li b{margin-left:auto;font-size:10px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.bar-row{width:100%;display:flex;justify-content:space-between;font-size:10px;color:#42474e}
 .bar-row b{font-weight:700}
 .bar-row.muted{color:#85878c}
-.bar{width:100%;height:12px;border-radius:6px;background:#f0f1f3;overflow:hidden}
-.bar i{display:block;height:100%;background:#42474e;border-radius:6px}
-.verify-steps{width:100%;display:flex;align-items:center;gap:10px}
-.vstep{display:flex;flex-direction:column;align-items:center;gap:4px}
-.vicon{width:40px;height:40px;border-radius:50%;background:#f0f1f3;display:flex;align-items:center;justify-content:center;font-size:18px;color:#85878c}
+.bar{width:100%;height:8px;border-radius:4px;background:#f0f1f3;overflow:hidden}
+.bar i{display:block;height:100%;background:#42474e;border-radius:4px}
+.verify-steps{width:100%;display:flex;align-items:center;gap:8px}
+.vstep{display:flex;flex-direction:column;align-items:center;gap:3px}
+.vicon{width:28px;height:28px;border-radius:50%;background:#f0f1f3;display:flex;align-items:center;justify-content:center;font-size:13px;color:#85878c}
 .vstep.done .vicon{background:#edf3ef;color:#58766a}
-.vstep small{font-size:11px;color:#85878c}
+.vstep small{font-size:9px;color:#85878c}
 .vstep.done small{color:#58766a}
-.vline{flex:1;height:3px;background:#d7e3dc}
-.verify-note{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#edf3ef;border-radius:10px;padding:10px 16px;font-size:12px;color:#58766a}
+.vline{flex:1;height:2px;background:#d7e3dc}
+.verify-note{width:100%;display:flex;justify-content:space-between;align-items:center;gap:6px;background:#edf3ef;border-radius:8px;padding:7px 10px;font-size:10px;color:#58766a}
 .verify-note b{font-weight:700;white-space:nowrap}
-@media(max-width:1100px){.stage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.stage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stage-card{aspect-ratio:auto;min-height:200px}}
 @media(max-width:640px){.stage-grid{grid-template-columns:1fr}}
