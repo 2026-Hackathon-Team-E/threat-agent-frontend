@@ -36,9 +36,9 @@ function headlineOf(c) {
   return c.summary_ko || c.title || '';
 }
 const CATEGORIES = [
+  { id: 'news', title: '뉴스', test: c => c.key.startsWith('NEWS:') },
   { id: 'cve', title: 'CVE 취약점 발견', test: c => c.key.startsWith('CVE-') },
   { id: 'advisory', title: '보안 이슈', test: c => !c.key.startsWith('CVE-') && !c.key.startsWith('NEWS:') },
-  { id: 'news', title: '뉴스', test: c => c.key.startsWith('NEWS:') },
 ];
 function cardHtml(c) {
   const risk = c.risk_label || '보통';
