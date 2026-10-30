@@ -14,7 +14,7 @@ async function refresh() {
     const [nextImpacts, nextCards] = await Promise.all([getImpacts(), getCards()]);
     impacts = nextImpacts; cards = nextCards;
     if (!selectedImpact || !impacts.some(i => i.id === selectedImpact)) selectedImpact = impacts[0]?.id || null;
-    renderSummary(impacts); renderImpacts(impacts, selectedImpact);
+    renderSummary(impacts, cards); renderImpacts(impacts, selectedImpact);
     renderDetail(impacts.find(i => i.id === selectedImpact)); renderCards(cards);
     connection(true);
     document.querySelector('#updated').textContent = `마지막 갱신: ${new Date().toLocaleTimeString('ko-KR')}`;

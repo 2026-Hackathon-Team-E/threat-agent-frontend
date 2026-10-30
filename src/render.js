@@ -1,9 +1,26 @@
 // 담당: F tmdtndks. 상태: 스텁 (구현 전). 명세는 docs/SCREENS.md.
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const badge = value => `<span class="badge ${value === '긴급' ? 'critical' : value === '높음' ? 'high' : ''}">${esc(value)}</span>`;
-export function renderSummary(impacts) {
-  document.querySelector('#summary').innerHTML = ['긴급','높음','보통'].map(tier => `<article class="metric"><span>${tier}</span><strong>${impacts.filter(i => i.priority?.tier === tier).length}</strong></article>`).join('');
+export function renderSummary(impacts, cards = []) {
+  const count = tier => impacts.filter(i => i.priority?.tier === tier).length;
+  const done = impacts.filter(i => i.status === '수정 완료').length;
+  const proposed = impacts.filter(i => i.status === '수정 제안').length;
+  const verified = impacts.filter(i => i.rescan === 0).length;
+  const ratio = impacts.length ? done / impacts.length : 0;
+  const steps = [
+    { name: '수집', value: cards.length, desc: `위협 카드 ${cards.length}건` },
+    { name: '영향 판단', value: impacts.length, desc: `긴급 ${count('긴급')} · 높음 ${count('높음')}` },
+    { name: '수정', value: `${done}/${impacts.length}`, desc: `수정 완료 ${done} · 제안 ${proposed}`, ratio },
+    { name: '검증', value: verified, desc: `재스캔 완료 ${verified}건` },
+  ];
+  document.querySelector('#summary').innerHTML =
+    `<div class="steps">${steps.map(s => `<article class="step"><span class="step-bar" style="--p:${s.ratio ?? 1}"></span><small>${esc(s.name)}</small><strong>${esc(s.value)}</strong><span>${esc(s.desc)}</span></article>`).join('')}</div>` +
+    `<div class="tier-row">${['긴급', '높음', '보통'].map(t => `<article class="tier ${t === '긴급' ? 'critical' : t === '높음' ? 'high' : ''}"><span>${t}</span><strong>${count(t)}</strong></article>`).join('')}</div>`;
+  document.querySelector('#count-impacts').textContent = impacts.length;
+  document.querySelector('#count-cards').textContent = cards.length;
+  document.querySelector('#tiers').innerHTML = ['긴급', '높음', '보통'].map(t => `<div class="tier-link"><span>${t}</span><b>${count(t)}</b></div>`).join('');
 }
+
 export function renderImpacts(impacts, selected) {
   const el = document.querySelector('#impacts');
   if (!impacts.length) { el.innerHTML = '<p class="empty">아직 영향 카드가 없습니다. CVE 재생으로 샘플을 넣어 보세요.</p>'; return; }
