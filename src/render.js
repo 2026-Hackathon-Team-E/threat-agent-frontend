@@ -135,11 +135,18 @@ function renderList() {
     el.innerHTML = `<p class="empty">${threatState.scope === 'impact' ? '우리 서비스에 영향을 주는 카드가 아직 없습니다.' : '표시할 카드가 없습니다.'}</p>`;
     return;
   }
-  el.innerHTML = CATEGORIES.map(cat => {
-    const group = items.filter(cat.test);
+  // 새로 들어온 카드(NEW)는 맨 위에 모으고, 나머지는 구획별로 보여 준다
+  const fresh = items.filter(c => isNew(c.key));
+  const rest = items.filter(c => !isNew(c.key));
+  const freshHtml = fresh.length
+    ? `<section class="category new-section"><h3 class="category-title">새로 들어온 카드<span>${fresh.length}</span></h3><div class="category-grid">${fresh.map(cardHtml).join('')}</div></section>`
+    : '';
+  const restHtml = CATEGORIES.map(cat => {
+    const group = rest.filter(cat.test);
     if (!group.length) return '';
     return `<section class="category"><h3 class="category-title">${cat.title}<span>${group.length}</span></h3><div class="category-grid">${group.map(cardHtml).join('')}</div></section>`;
   }).join('');
+  el.innerHTML = freshHtml + restHtml;
 }
 export function renderCards(cards) {
   lastCards = cards;
