@@ -118,3 +118,24 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 @media(max-width:1000px){.sidebar{display:none}.page-2,.page-3{margin-left:0;padding:24px}.workspace{grid-template-columns:1fr}}
 /* 온보딩은 위쪽에서 시작 (한 화면 가운데 정렬 규칙 해제) */
 .onboard{min-height:0;justify-content:flex-start}
+
+/* 진행 카드: 장식 줄여 깔끔하게, 글자 키움 */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:22px 22px 20px;box-shadow:none;display:flex;flex-direction:column;gap:10px}
+.step-head{display:flex;justify-content:space-between;align-items:center}
+.step-name{font-size:17px;font-weight:600;color:#1d1d1f}
+.step-no{font-size:13px;color:#a1a1a6;font-variant-numeric:tabular-nums}
+.step-value{font-size:44px;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:#1d1d1f;font-variant-numeric:tabular-nums}
+.step-track{height:6px;border-radius:999px;background:#f0f0f3;overflow:hidden;margin-top:4px}
+.step-track i{display:block;height:100%;border-radius:999px;background:#1d1d1f}
+.step-desc{font-size:15px;color:#6e6e73;line-height:1.45}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.tier{background:#fff;border:1px solid #ececf0;border-radius:16px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;box-shadow:none}
+.tier-name{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;color:#1d1d1f}
+.tier-name .dot{width:9px;height:9px;border-radius:50%;background:#c7c7cc;display:inline-block}
+.tier.critical .dot{background:#dc2626}
+.tier.high .dot{background:#ea8a1a}
+.tier strong{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;color:#1d1d1f}
+.tier.critical strong{color:#dc2626}
+.tier.high strong{color:#c2620f}
+@media(max-width:1000px){.steps,.tiers{grid-template-columns:1fr 1fr}}
