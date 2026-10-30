@@ -68,19 +68,27 @@ function plainText(html) {
 export function renderCardDetail(card) {
   const el = document.querySelector('#card-detail');
   if (!card) { el.innerHTML = '<p class="muted">위협 카드를 선택해 상세 정보를 확인하세요.</p>'; return; }
+  const category = (CATEGORIES.find(c => c.test(card)) || CATEGORIES[1]).title;
   const text = plainText(card.summary);
   const short = text.length > 400 ? `${text.slice(0, 400)}…` : text;
   const products = (card.affected || []).map(a => a.name.split(':').pop()).filter((v, i, arr) => arr.indexOf(v) === i);
-  el.innerHTML = `<h3>${esc(card.summary_ko || card.title || '')}</h3>
-    <p class="muted">원문 제목: ${esc(card.title || '-')}</p>
-    <dl class="threat-facts detail-facts">
-      <div><dt>분류</dt><dd>${esc((CATEGORIES.find(c => c.test(card)) || CATEGORIES[1]).title)}</dd></div>
+  const identifier = card.key.startsWith('NEWS:') ? '뉴스 기사' : card.key;
+  el.innerHTML = `<div class="detail-head">
+      <span class="detail-category">${esc(category)}</span>
+      <span class="detail-id">${esc(identifier)}</span>
+    </div>
+    <h3 class="detail-title">${esc(card.summary_ko || card.title || '')}</h3>
+    <dl class="detail-facts">
       <div><dt>위험 등급</dt><dd>${esc(card.risk_label || '보통')}</dd></div>
       <div><dt>상태</dt><dd>${esc(card.status)}</dd></div>
       <div><dt>대상 제품</dt><dd>${esc(products.join(', ') || '확인 전')}</dd></div>
-      <div><dt>우리 서비스</dt><dd>${esc((card.affected_services || []).join(', ') || '없음')}</dd></div>
+      <div><dt>우리 서비스</dt><dd>${esc((card.affected_services || []).join(', ') || '영향 없음')}</dd></div>
       <div><dt>출처</dt><dd>${esc((card.sources || []).join(', ') || '-')}</dd></div>
     </dl>
-    <h4>설명</h4>
-    <p class="detail-text">${esc(short || '설명이 없습니다.')}</p>`;
+    <div class="detail-original">
+      <span class="detail-label">원문 제목 (영문)</span>
+      <p>${esc(card.title || '-')}</p>
+      <span class="detail-label">원문 설명 (영문)</span>
+      <p class="detail-text">${esc(short || '설명이 없습니다.')}</p>
+    </div>`;
 }

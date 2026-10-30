@@ -171,3 +171,16 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 
 /* 위험 등급 표시는 색 없이 글자만 */
 .risk-chip{background:none;padding:0;font-size:14px;font-weight:600;color:#3a3a3c}
+
+/* 위협 상세: 무엇인지 먼저, 원문은 아래에 */
+.detail-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.detail-category{font-size:13px;font-weight:600;color:#3a3a3c;background:#f0f0f3;border-radius:999px;padding:4px 10px}
+.detail-id{font-size:13px;color:#86868b;font-variant-numeric:tabular-nums}
+.detail-title{font-size:22px;font-weight:700;line-height:1.4;margin:0 0 16px;color:#1d1d1f}
+.detail-facts{display:grid;gap:8px;margin:0}
+.detail-facts div{display:grid;grid-template-columns:110px 1fr;gap:10px;font-size:15px}
+.detail-facts dt{color:#86868b}
+.detail-facts dd{margin:0;color:#1d1d1f;overflow-wrap:anywhere}
+.detail-original{margin-top:20px;padding-top:16px;border-top:1px solid #ececf0}
+.detail-label{display:block;font-size:13px;font-weight:600;color:#86868b;margin:10px 0 4px}
+.detail-original p{font-size:14px;line-height:1.6;color:#3a3a3c;margin:0}
