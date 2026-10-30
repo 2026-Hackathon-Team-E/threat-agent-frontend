@@ -139,3 +139,8 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .tier.critical strong{color:#dc2626}
 .tier.high strong{color:#c2620f}
 @media(max-width:1000px){.steps,.tiers{grid-template-columns:1fr 1fr}}
+/* 이전 규칙과 충돌 정리: 등급 점 하나만, 글자 크기 복원 */
+.tier span::before{content:none}
+.tier .tier-name{font-size:17px;color:#1d1d1f}
+.step .step-desc{font-size:15px;color:#6e6e73}
+.step .step-name{font-size:17px}
