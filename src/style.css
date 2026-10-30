@@ -152,8 +152,6 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .threat:hover{border-color:#c7c7cc}
 .threat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .risk-chip{font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:#f0f0f3;color:#3a3a3c}
-.threat.critical .risk-chip{background:#fde8e8;color:#b91c1c}
-.threat.high .risk-chip{background:#fdf0d5;color:#92400e}
 .status-chip{font-size:12px;color:#6e6e73}
 .threat-summary{font-size:18px;font-weight:600;line-height:1.45;color:#1d1d1f}
 .threat-cve{font-size:13px;color:#86868b;font-variant-numeric:tabular-nums}
@@ -170,3 +168,6 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .detail-facts{margin:10px 0 0}
 .detail-text{font-size:15px;line-height:1.65;color:#3a3a3c;white-space:pre-wrap}
 .threats-scroll{display:block;padding-right:6px}
+
+/* 위험 등급 표시는 색 없이 글자만 */
+.risk-chip{background:none;padding:0;font-size:14px;font-weight:600;color:#3a3a3c}
