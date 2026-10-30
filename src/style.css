@@ -238,9 +238,9 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .tag{font-size:9px;color:#42474e;background:#f0f1f3;border:1px solid #e5e6ea;border-radius:3px;padding:2px 6px}
 .tag-bold{font-weight:700}
 .stage-foot{margin:auto 0 0;font-size:10px;color:#85878c;line-height:1.4}
-.donut-row{width:100%;display:flex;align-items:center;gap:10px}
-.donut{width:96px;height:96px;border-radius:50%;flex:none;position:relative}
-.donut-hole{position:absolute;inset:24px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-row{width:100%;flex:1;display:flex;align-items:center;justify-content:center;gap:12px}
+.donut{width:92px;height:92px;border-radius:50%;flex:none;position:relative}
+.donut-hole{position:absolute;inset:9px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .donut-hole strong{font-size:22px;font-weight:700;color:#242527;line-height:1}
 .donut-hole span{font-size:10px;color:#85878c}
 .legend{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
