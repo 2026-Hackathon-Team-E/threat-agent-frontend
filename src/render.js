@@ -2,18 +2,75 @@
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const badge = value => `<span class="badge ${value === '긴급' ? 'critical' : value === '높음' ? 'high' : ''}">${esc(value)}</span>`;
 export function renderSummary(impacts, cards = []) {
+  const tierCount = tier => impacts.filter(i => i.priority?.tier === tier).length;
+  const urgent = tierCount('긴급');
+  const review = tierCount('높음');
+  const minor = tierCount('보통');
+  const total = impacts.length;
   const done = impacts.filter(i => i.status === '수정 완료').length;
   const proposed = impacts.filter(i => i.status === '수정 제안').length;
   const verified = impacts.filter(i => i.rescan === 0).length;
-  const high = impacts.filter(i => i.priority?.tier === '긴급' || i.priority?.tier === '높음').length;
-  const steps = [
-    { name: '수집', value: cards.length, desc: `위협 카드 ${cards.length}건`, ratio: 1 },
-    { name: '영향 판단', value: impacts.length, desc: `우선 확인 ${high}건`, ratio: 1 },
-    { name: '수정', value: `${done}/${impacts.length}`, desc: `완료 ${done} · 제안 ${proposed}`, ratio: impacts.length ? done / impacts.length : 0 },
-    { name: '검증', value: verified, desc: `재스캔 완료 ${verified}건`, ratio: 1 },
-  ];
-  document.querySelector('#summary').innerHTML =
-    `<div class="steps">${steps.map((s, i) => `<article class="step"><div class="step-head"><span class="step-name">${esc(s.name)}</span><span class="step-no">0${i + 1}</span></div><strong class="step-value">${esc(s.value)}</strong><div class="step-track"><i style="width:${Math.round(s.ratio * 100)}%"></i></div><span class="step-desc">${esc(s.desc)}</span></article>`).join('')}</div>`;
+  const cveCount = cards.filter(c => c.key.startsWith('CVE-')).length;
+  const kevCount = cards.filter(c => c.kev).length;
+  const newsCount = cards.filter(c => c.key.startsWith('NEWS:')).length;
+  const pct = total ? Math.round((urgent / total) * 100) : 0;
+  const pct2 = total ? Math.round(((urgent + review) / total) * 100) : 0;
+  const donutBg = total
+    ? `conic-gradient(#c0392b 0 ${pct}%, #d4833a ${pct}% ${pct2}%, #c5c7cb ${pct2}% 100%)`
+    : 'conic-gradient(#e5e5ea 0 100%)';
+  const donePct = total ? Math.round((done / total) * 100) : 0;
+  document.querySelector('#summary').innerHTML = `
+    <div class="stage-grid">
+      <article class="stage-card">
+        <div class="stage-head"><h2>수집</h2><span>01</span></div>
+        <div class="stage-body">
+          <strong class="stage-value">${cards.length}</strong>
+          <div class="stage-icon">CVE · KEV</div>
+        </div>
+        <div class="stage-tags">
+          <span class="tag">CVE ${cveCount}</span>
+          <span class="tag">KEV ${kevCount}</span>
+          <span class="tag tag-bold">뉴스 ${newsCount}</span>
+        </div>
+        <p class="stage-foot">위협 카드 ${cards.length}건</p>
+      </article>
+
+      <article class="stage-card">
+        <div class="stage-head"><h2>영향 판단</h2><span>02</span></div>
+        <div class="donut-row">
+          <div class="donut" style="background:${donutBg}" aria-label="총 ${total}건: 우선 확인 ${urgent}건, 검토 필요 ${review}건, 영향 없음 ${minor}건">
+            <div class="donut-hole"><strong>${total}</strong><span>건</span></div>
+          </div>
+          <ul class="legend">
+            <li><i style="background:#c0392b"></i><span>우선 확인</span><b style="color:#c0392b">${urgent}</b></li>
+            <li><i style="background:#d4833a"></i><span>검토 필요</span><b style="color:#d4833a">${review}</b></li>
+            <li><i style="background:#c5c7cb"></i><span>영향 없음</span><b>${minor}</b></li>
+          </ul>
+        </div>
+        <p class="stage-foot">우선 확인 ${urgent}건 · 검토 필요 ${review}건 · 영향 없음 ${minor}건</p>
+      </article>
+
+      <article class="stage-card">
+        <div class="stage-head"><h2>수정</h2><span>03</span></div>
+        <strong class="stage-value">${done}/${total}</strong>
+        <div class="bar-row"><span>완료</span><b>${done}</b></div>
+        <div class="bar"><i style="width:${donePct}%"></i></div>
+        <div class="bar-row muted"><span>제안</span><b>${proposed}</b></div>
+        <p class="stage-foot">완료 ${done} · 제안 ${proposed}</p>
+      </article>
+
+      <article class="stage-card">
+        <div class="stage-head"><h2>검증</h2><span>04</span></div>
+        <strong class="stage-value">${verified}</strong>
+        <div class="verify-steps">
+          <div class="vstep"><span class="vicon">✓</span><small>스캔</small></div>
+          <span class="vline"></span>
+          <div class="vstep done"><span class="vicon">✓</span><small>완료</small></div>
+        </div>
+        <div class="verify-note"><span>재스캔 완료 · 결과 기록됨</span><b>${verified}건</b></div>
+        <p class="stage-foot">재스캔 완료 ${verified}건</p>
+      </article>
+    </div>`;
   document.querySelector('#count-impacts').textContent = impacts.length;
   document.querySelector('#count-cards').textContent = cards.length;
 }
