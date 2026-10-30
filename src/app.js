@@ -33,7 +33,7 @@ document.querySelector('#impacts').addEventListener('click', event => {
 document.querySelector('#cards').addEventListener('click', async event => {
   const item = event.target.closest('[data-card]'); if (!item) return;
   const target = document.querySelector('#card-detail'); target.textContent = '상세 정보 불러오는 중…';
-  try { renderCardDetail(await getCard(item.dataset.card)); } catch (error) { target.textContent = `상세 조회 실패: ${error.message}`; }
+  try { const base = cards.find(c => c.key === item.dataset.card) || {}; renderCardDetail({ ...base, ...(await getCard(item.dataset.card)) }); } catch (error) { target.textContent = `상세 조회 실패: ${error.message}`; }
 });
 renderSummary([]); document.querySelector('#impacts').textContent = '불러오는 중…'; document.querySelector('#cards').textContent = '불러오는 중…';
 refresh(); start();
