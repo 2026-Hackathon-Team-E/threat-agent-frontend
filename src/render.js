@@ -85,6 +85,7 @@ export function renderCardDetail(card) {
       <div><dt>우리 서비스</dt><dd>${esc((card.affected_services || []).join(', ') || '영향 없음')}</dd></div>
       <div><dt>출처</dt><dd>${esc((card.sources || []).join(', ') || '-')}</dd></div>
     </dl>
+    ${card.description_ko ? `<div class="detail-ko"><span class="detail-label">한국어 요약 (자동 번역)</span><p>${esc(card.description_ko)}</p></div>` : ''}
     <div class="detail-original">
       <span class="detail-label">원문 제목 (영문)</span>
       <p>${esc(card.title || '-')}</p>
