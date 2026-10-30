@@ -200,3 +200,8 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 /* NEW 표시: 아직 안 본 카드 */
 .threat-tags{display:inline-flex;align-items:center;gap:8px}
 .new-badge{font-size:11px;font-weight:700;letter-spacing:.04em;background:#1d1d1f;color:#fff;border-radius:999px;padding:3px 8px}
+
+.risk-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #e5e5ea;background:#fff;color:#3a3a3c;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.risk-btn span{font-size:12px;color:#86868b;font-variant-numeric:tabular-nums}
+.risk-btn.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff}
+.risk-btn.active span{color:#d2d2d7}
