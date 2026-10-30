@@ -60,6 +60,7 @@ function cardHtml(c) {
   return `<button class="threat ${RISK_CLASS[risk] || 'normal'}" data-card="${esc(c.key)}">
     <span class="threat-top"><span class="risk-chip">${esc(risk)}</span><span class="threat-tags">${isNew(c.key) ? '<span class="new-badge">NEW</span>' : ''}<span class="status-chip">${esc(c.status)}</span></span></span>
     <strong class="threat-summary">${esc(headlineOf(c))}</strong>
+    ${c.description_ko ? `<p class="threat-desc">${esc(c.description_ko)}</p>` : ''}
     <span class="threat-cve">${esc(c.key.startsWith('NEWS:') ? '뉴스 기사' : c.key)}</span>
     <dl class="threat-facts">
       <div><dt>대상</dt><dd>${products}</dd></div>
@@ -79,7 +80,13 @@ const CAT_FILTERS = [
   { id: 'cve', label: 'CVE' },
   { id: 'advisory', label: '보안 이슈' },
 ];
-const threatState = { scope: 'impact', category: 'all' };
+const RISK_FILTERS = [
+  { id: 'all', label: '전체 등급' },
+  { id: '긴급', label: '긴급' },
+  { id: '높음', label: '높음' },
+  { id: '보통', label: '보통' },
+];
+const threatState = { scope: 'impact', category: 'all', risk: 'all' };
 let lastCards = [];
 const inScope = c => {
   const hit = (c.affected_services || []).length > 0;
@@ -88,12 +95,15 @@ const inScope = c => {
   return true;
 };
 const inCategory = c => threatState.category === 'all' || CATEGORIES.find(x => x.id === threatState.category)?.test(c);
+const inRisk = c => threatState.risk === 'all' || (c.risk_label || '보통') === threatState.risk;
 function renderControls() {
   const el = document.querySelector('#filters');
   const scopeCount = id => lastCards.filter(c => { const hit = (c.affected_services || []).length > 0; return id === 'impact' ? hit : id === 'other' ? !hit : true; }).length;
-  const catCount = id => lastCards.filter(c => inScope(c) && (id === 'all' || CATEGORIES.find(x => x.id === id)?.test(c))).length;
+  const catCount = id => lastCards.filter(c => inScope(c) && inRisk(c) && (id === 'all' || CATEGORIES.find(x => x.id === id)?.test(c))).length;
+  const riskCount = id => lastCards.filter(c => inScope(c) && inCategory(c) && (id === 'all' || (c.risk_label || '보통') === id)).length;
   el.innerHTML = `<div class="filter-row">${SCOPES.map(s => `<button class="scope-btn ${threatState.scope === s.id ? 'active' : ''}" data-scope="${s.id}">${s.label}<span>${scopeCount(s.id)}</span></button>`).join('')}</div>
-    <div class="filter-row sub">${CAT_FILTERS.map(f => `<button class="cat-btn ${threatState.category === f.id ? 'active' : ''}" data-cat="${f.id}">${f.label}<span>${catCount(f.id)}</span></button>`).join('')}</div>`;
+    <div class="filter-row sub">${CAT_FILTERS.map(f => `<button class="cat-btn ${threatState.category === f.id ? 'active' : ''}" data-cat="${f.id}">${f.label}<span>${catCount(f.id)}</span></button>`).join('')}</div>
+    <div class="filter-row sub">${RISK_FILTERS.map(f => `<button class="risk-btn ${threatState.risk === f.id ? 'active' : ''}" data-risk="${f.id}">${f.label}<span>${riskCount(f.id)}</span></button>`).join('')}</div>`;
 }
 const SEEN_KEY = 'seenThreatKeys';
 let seenKeys = null;
@@ -120,16 +130,23 @@ export function markSeen(key) {
 }
 function renderList() {
   const el = document.querySelector('#cards');
-  const items = lastCards.filter(c => inScope(c) && inCategory(c));
+  const items = lastCards.filter(c => inScope(c) && inCategory(c) && inRisk(c));
   if (!items.length) {
     el.innerHTML = `<p class="empty">${threatState.scope === 'impact' ? '우리 서비스에 영향을 주는 카드가 아직 없습니다.' : '표시할 카드가 없습니다.'}</p>`;
     return;
   }
-  el.innerHTML = CATEGORIES.map(cat => {
-    const group = items.filter(cat.test);
+  // 새로 들어온 카드(NEW)는 맨 위에 모으고, 나머지는 구획별로 보여 준다
+  const fresh = items.filter(c => isNew(c.key));
+  const rest = items.filter(c => !isNew(c.key));
+  const freshHtml = fresh.length
+    ? `<section class="category new-section"><h3 class="category-title">새로 들어온 카드<span>${fresh.length}</span></h3><div class="category-grid">${fresh.map(cardHtml).join('')}</div></section>`
+    : '';
+  const restHtml = CATEGORIES.map(cat => {
+    const group = rest.filter(cat.test);
     if (!group.length) return '';
     return `<section class="category"><h3 class="category-title">${cat.title}<span>${group.length}</span></h3><div class="category-grid">${group.map(cardHtml).join('')}</div></section>`;
   }).join('');
+  el.innerHTML = freshHtml + restHtml;
 }
 export function renderCards(cards) {
   lastCards = cards;
@@ -141,10 +158,11 @@ export function renderCards(cards) {
   renderList();
 }
 document.querySelector('#filters')?.addEventListener('click', e => {
-  const btn = e.target.closest('[data-scope],[data-cat]');
+  const btn = e.target.closest('[data-scope],[data-cat],[data-risk]');
   if (!btn) return;
   if (btn.dataset.scope) threatState.scope = btn.dataset.scope;
   if (btn.dataset.cat) threatState.category = btn.dataset.cat;
+  if (btn.dataset.risk) threatState.risk = btn.dataset.risk;
   renderControls();
   renderList();
 });
