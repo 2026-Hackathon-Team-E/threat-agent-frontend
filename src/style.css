@@ -205,3 +205,5 @@ body:has(.page-2:target) .sidebar,body:has(.page-3:target) .sidebar{display:bloc
 .risk-btn span{font-size:12px;color:#86868b;font-variant-numeric:tabular-nums}
 .risk-btn.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff}
 .risk-btn.active span{color:#d2d2d7}
+/* 위험 등급: 긴급만 채도 낮은 붉은색, 나머지는 글자만 */
+.threat.critical .risk-chip{background:#f8e9e8;color:#9a4a47;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600}
